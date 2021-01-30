@@ -1,4 +1,3 @@
-
 #include "DoubleLinkedList.h"
 
 int main() {
