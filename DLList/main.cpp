@@ -3,7 +3,7 @@
 int main()
 {
   try {
-    DoubleLinkedList list1, list2;
+    DoubleLinkedList list1, list2, list4;
     std::cout << "Empty list1 -> " << list1 << '\n';
     list1.insertHead(10);
     std::cout << "Insert 10 into head of list1 -> " << list1 << '\n';
@@ -39,6 +39,10 @@ int main()
     std::cout << "list2 -> " << list2 << '\n';
     list1.addListIntoTail(list2);
     std::cout << "list2 -> " << list2 << '\n';
+    list4 = std::move(list1);
+    std::cout << "list4 move operator= -> " << list4 << '\n';
+    list4 = std::move(list2);
+    std::cout << "list4 move operator= -> " << list4 << '\n';
     list2.tailItem();
   }
   catch (const char *msg) {

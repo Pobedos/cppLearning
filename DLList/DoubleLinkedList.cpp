@@ -267,10 +267,19 @@ bool DoubleLinkedList::searchItem(const int item) const
 
 void DoubleLinkedList::addListIntoTail(DoubleLinkedList &another)
 {
-  while (another.head_ != nullptr) {
-    this->insertTail(another.headItem());
-    another.deleteHead();
+  if (tail_ != nullptr) {
+    tail_->next_ = another.head_;
+  } else {
+    head_ = another.head_;
   }
+  if (another.head_ != nullptr) {
+    another.head_->prev_ = tail_;
+    tail_ = another.tail_;
+  }
+  count_ += another.count_;
+  another.count_ = 0;
+  another.head_ = nullptr;
+  another.tail_ = nullptr;
 }
 
 void DoubleLinkedList::purge()
