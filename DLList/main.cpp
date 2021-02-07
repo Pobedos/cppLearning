@@ -1,6 +1,7 @@
 #include "DoubleLinkedList.h"
 
-int main() {
+int main()
+{
   try {
     DoubleLinkedList list1, list2;
     std::cout << "Empty list1 -> " << list1 << '\n';
@@ -36,10 +37,12 @@ int main() {
     list1.addListIntoTail(list2);
     std::cout << "list1 add list2 -> " << list1 << '\n';
     std::cout << "list2 -> " << list2 << '\n';
+    list1.addListIntoTail(list2);
+    std::cout << "list2 -> " << list2 << '\n';
     list2.tailItem();
   }
   catch (const char *msg) {
-    std::cerr << "Произошла ошибка: " << msg << '\n';
+    std::cout << "Произошла ошибка: " << msg << '\n';
     return 2;
   }
 

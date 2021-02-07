@@ -22,13 +22,9 @@ DoubleLinkedList::DoubleLinkedList(DoubleLinkedList &&src)
 
 DoubleLinkedList::~DoubleLinkedList()
 {
-  Node *current = nullptr;
-  Node *next = head_;
-  while (next != nullptr) {
-    current = next;
-    next = next->next_;
-    delete current;
-  }
+  purge();
+  head_ = nullptr;
+  tail_ = nullptr;
 }
 
 DoubleLinkedList &DoubleLinkedList::operator=(const DoubleLinkedList &src)
@@ -46,7 +42,7 @@ DoubleLinkedList &DoubleLinkedList::operator=(DoubleLinkedList &&src)
   if (this == &src) {
     return *this;
   }
-  delete this;
+  purge();
   head_ = src.head_;
   tail_ = src.tail_;
   count_ = src.count_;
@@ -155,10 +151,13 @@ void DoubleLinkedList::swap(DoubleLinkedList &src)
 {
   Node *tempHead = head_;
   Node *tempTail = tail_;
+  int tempCount = count_;
   head_ = src.head_;
   tail_ = src.tail_;
+  count_ = src.count_;
   src.head_ = tempHead;
   src.tail_ = tempTail;
+  src.count_ = tempCount;
 }
 
 DoubleLinkedList::Node *DoubleLinkedList::replaceNode(DoubleLinkedList::Node *x, int item)
@@ -271,5 +270,16 @@ void DoubleLinkedList::addListIntoTail(DoubleLinkedList &another)
   while (another.head_ != nullptr) {
     this->insertTail(another.headItem());
     another.deleteHead();
+  }
+}
+
+void DoubleLinkedList::purge()
+{
+  Node *current = nullptr;
+  Node *next = head_;
+  while (next != nullptr) {
+    current = next;
+    next = next->next_;
+    delete current;
   }
 }

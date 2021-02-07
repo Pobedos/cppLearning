@@ -83,6 +83,8 @@ private:
   Node *replaceNode(Node *x, int item);
 
   void swap(DoubleLinkedList &src);
+
+  void purge();
 };
 
 #endif //DDLIST_DOUBLELINKEDLIST_H
