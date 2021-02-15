@@ -85,6 +85,8 @@ private:
   void swap(DoubleLinkedList &src);
 
   void purge();
+
+  Node *searchNode(int item, Node *node) const;
 };
 
 #endif //DDLIST_DOUBLELINKEDLIST_H

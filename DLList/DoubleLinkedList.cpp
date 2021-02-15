@@ -1,7 +1,7 @@
 #include "DoubleLinkedList.h"
 
 DoubleLinkedList::DoubleLinkedList(const DoubleLinkedList &src):
-        DoubleLinkedList()
+  DoubleLinkedList()
 {
   Node *tmp = src.head_;
   while (tmp != nullptr) {
@@ -70,14 +70,14 @@ bool DoubleLinkedList::operator==(const DoubleLinkedList &another)
 {
   Node *tmp = this->head_;
   Node *tmp2 = another.head_;
-  while (tmp != nullptr) {
+  while (tmp != nullptr && tmp2 != nullptr) {
     if (tmp->item_ != tmp2->item_) {
       return 0;
     }
     tmp = tmp->next_;
     tmp2 = tmp2->next_;
   }
-  return 1;
+  return tmp == tmp2;
 }
 
 DoubleLinkedList::Node *DoubleLinkedList::head() const
@@ -141,6 +141,15 @@ void DoubleLinkedList::deleteNode(DoubleLinkedList::Node *x)
 DoubleLinkedList::Node *DoubleLinkedList::searchNode(int item) const
 {
   Node *tmp = head_;
+  while (tmp != nullptr && tmp->item_ != item) {
+    tmp = tmp->next_;
+  }
+  return tmp;
+}
+
+DoubleLinkedList::Node *DoubleLinkedList::searchNode(int item, Node *node) const
+{
+  Node *tmp = node;
   while (tmp != nullptr && tmp->item_ != item) {
     tmp = tmp->next_;
   }
@@ -211,53 +220,57 @@ int &DoubleLinkedList::tailItem()
 bool DoubleLinkedList::deleteHead()
 {
   if (head_ == nullptr) {
-    return 0;
+    return false;
   }
   deleteNode(head_);
-  return 1;
+  return true;
 }
 
 bool DoubleLinkedList::deleteTail()
 {
   if (tail_ == nullptr) {
-    return 0;
+    return false;
   }
   deleteNode(tail_);
-  return 1;
+  return true;
 }
 
 bool DoubleLinkedList::deleteItem(const int item, bool all)
 {
   Node *x = searchNode(item);
+  Node *tmp;
   if (x == nullptr) {
-    return 0;
+    return false;
   }
   if (all) {
     while (x != nullptr) {
+      tmp = x->next_;
       deleteNode(x);
-      x = searchNode(item);
+      x = searchNode(item, tmp);
     }
   } else {
     deleteNode(x);
   }
-  return 1;
+  return true;
 }
 
 bool DoubleLinkedList::replaceItem(const int oldItem, const int newItem, bool all)
 {
   Node *x = searchNode(oldItem);
+  Node *tmp;
   if (x == nullptr) {
-    return 0;
+    return false;
   }
   if (all) {
     while (x != nullptr) {
+      tmp = x->next_;
       replaceNode(x, newItem);
-      x = searchNode(oldItem);
+      x = searchNode(oldItem, tmp);
     }
   } else {
     replaceNode(x, newItem);
   }
-  return 1;
+  return true;
 }
 
 bool DoubleLinkedList::searchItem(const int item) const

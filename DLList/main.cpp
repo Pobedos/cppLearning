@@ -12,12 +12,11 @@ int main()
     DoubleLinkedList list3(list2);
     std::cout << "list3(list2) -> " << list3 << '\n';
     std::cout << "list1 == list2 -> " << (list1 == list2) << '\n';
-    list1.insertHead(11);
-    list2.insertHead(12);
+    list1.insertTail(11);
     std::cout << "list1 -> " << list1 << '\n';
     std::cout << "list2 -> " << list2 << '\n';
     std::cout << "list1 == list2 -> " << (list1 == list2) << '\n';
-    list1.insertTail(5);
+    std::cout << "list1 == list2 -> " << (list1 == list2) << '\n';
     std::cout << "Insert 5 into tail of list1 -> " << list1 << '\n';
     list1.insertTail(5);
     list1.insertTail(5);
